@@ -26,5 +26,6 @@ sequelize.sync({ force: false })
     });
 
 module.exports = {
-    Post
+    Post,
+    sequelize
 }
