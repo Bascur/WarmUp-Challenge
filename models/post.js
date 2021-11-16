@@ -12,7 +12,13 @@ module.exports = (sequelize, type) => {
         titulo: Sequelize.STRING,
         contenido: Sequelize.TEXT,
         imagen: Sequelize.STRING,
-        categoria: Sequelize.STRING,
+        categoria: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: "categoria",
+                key: 'id'
+            }
+        },
         fecha: Sequelize.DATE,
 
     }, {

@@ -5,6 +5,7 @@ require('dotenv').config();
 //Get Model
 
 const postModel = require('./models/post');
+const categoryModel = require('./models/categoria');
 
 //Config Sequelize
 
@@ -17,6 +18,7 @@ const sequelize = new Sequelize(process.env.NAME, process.env.NAME, process.env.
 //Excec the =>
 
 const Post = postModel(sequelize, Sequelize);
+const Category = categoryModel(sequelize, Sequelize);
 
 //Update the DB
 
@@ -27,5 +29,6 @@ sequelize.sync({ force: false })
 
 module.exports = {
     Post,
+    Category,
     sequelize
 }

@@ -5,7 +5,8 @@ const { QueryTypes } = require('sequelize');
 
 
 //DB Model
-const { Post } = require('../../db');
+const { Post, Category } = require('../../db');
+
 
 
 //Get all posts
@@ -84,7 +85,7 @@ router.delete('/:id', async(req, res) => {
             error: "Post not found"
         });
     }
-    //Update the post
+    //Delete the post
     else {
         await Post.destroy({
             where: { id: req.params.id }
