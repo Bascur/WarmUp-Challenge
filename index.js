@@ -18,6 +18,8 @@ require('./db');
 //Routes
 app.use('/', apiRouter);
 
+
+
 //Server Up
 app.listen(3000, function() {
     console.log("Server up on 3000");

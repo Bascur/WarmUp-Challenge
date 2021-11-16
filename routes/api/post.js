@@ -1,7 +1,7 @@
 //Require Router
 const router = require('express').Router();
 const { sequelize } = require('../../db')
-const { QueryTypes } = require('sequelize');
+const { QueryTypes, DATE } = require('sequelize');
 //DB Model
 
 const { Post } = require('../../db');
@@ -30,7 +30,20 @@ router.get('/:id', async(req, res) => {
     } else {
         res.json(post);
     }
-
 });
+
+
+
+router.post('/', async(req, res) => {
+    const date_time = new Date();
+    const post = await Post.create({
+        titulo: req.body.titulo,
+        contenido: req.body.contenido,
+        imagen: req.body.imagen,
+        categoria: req.body.categoria,
+        fecha: date_time
+    });
+    res.json(post);
+})
 
 module.exports = router;
