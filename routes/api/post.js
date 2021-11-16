@@ -1,13 +1,14 @@
-//Require Router
+//Require modules
 const router = require('express').Router();
 const { sequelize } = require('../../db')
-const { QueryTypes, DATE } = require('sequelize');
-//DB Model
+const { QueryTypes } = require('sequelize');
 
+
+//DB Model
 const { Post } = require('../../db');
 
-//Get all posts
 
+//Get all posts
 router.get('/', async(req, res) => {
     const post = await sequelize.query("SELECT id, titulo, imagen, categoria, fecha FROM `posts` ORDER BY `fecha` DESC", { type: QueryTypes.SELECT });
     if (post.length === 0) {
@@ -19,8 +20,8 @@ router.get('/', async(req, res) => {
     }
 });
 
-//Get by ID
 
+//Get by ID
 router.get('/:id', async(req, res) => {
     const post = await Post.findOne({
         where: { id: req.params.id }
@@ -33,7 +34,7 @@ router.get('/:id', async(req, res) => {
 });
 
 
-
+//New Post
 router.post('/', async(req, res) => {
     const date_time = new Date();
     const post = await Post.create({
@@ -45,5 +46,53 @@ router.post('/', async(req, res) => {
     });
     res.json(post);
 })
+
+//Edit post 
+
+router.patch('/:id', async(req, res) => {
+    //Get the post
+    const post = await Post.findOne({
+        where: { id: req.params.id }
+    });
+    //Check if post was fetch
+    if (post === null) {
+        res.json({
+            error: "Post not found"
+        });
+    }
+    //Update the post
+    else {
+        await Post.update(req.body, {
+            where: { id: req.params.id }
+        });
+        res.json({
+            success: "Post Updated"
+        });
+    }
+});
+
+//Delete the post
+
+router.delete('/:id', async(req, res) => {
+    //Get the post
+    const post = await Post.findOne({
+        where: { id: req.params.id }
+    });
+    //Check if post was fetch
+    if (post === null) {
+        res.json({
+            error: "Post not found"
+        });
+    }
+    //Update the post
+    else {
+        await Post.destroy({
+            where: { id: req.params.id }
+        });
+        res.json({
+            success: "Post Deleted"
+        });
+    }
+});
 
 module.exports = router;
