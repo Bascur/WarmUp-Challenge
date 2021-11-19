@@ -6,7 +6,7 @@ const got = require('got');
 const fileType = require('file-type');
 
 //DB Model
-const { Post, Category } = require('../../db');
+const { Post } = require('../../db');
 
 
 //Get all posts
