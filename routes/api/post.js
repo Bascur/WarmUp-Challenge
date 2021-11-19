@@ -28,18 +28,16 @@ router.get('/', async(req, res) => {
 router.get('/:id', async(req, res) => {
     try {
         if (isNaN(req.params.id)) { throw new Error() };
-        await sequelize.query(`
-        SELECT id, titulo, imagen, fecha, contenido, categories.categoria FROM posts INNER JOIN categories ON posts.categoria = categories.category_id WHERE posts.id = ${req.params.id} ORDER BY fecha DESC`, { type: QueryTypes.SELECT })
-
-        .then(post => {
-            if (post) {
-                res.json(post);
-            } else {
-                res.status(400).send({ error: "Post not found." });
-            }
-        }).catch(error => {
-            res.status(500).json(error)
-        });
+        await sequelize.query(`SELECT id, titulo, imagen, fecha, contenido, categories.categoria FROM posts INNER JOIN categories ON posts.categoria = categories.category_id WHERE posts.id = ${req.params.id}`, { type: QueryTypes.SELECT })
+            .then(post => {
+                if (post === true) {
+                    res.json(post);
+                } else {
+                    res.status(400).send({ error: "Post not found." });
+                }
+            }).catch(error => {
+                res.status(500).json(error)
+            });
     } catch { res.status(500).json({ error: "The id must be a number" }) }
 })
 
