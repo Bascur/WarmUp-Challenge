@@ -15,8 +15,8 @@ module.exports = (sequelize, type) => {
         categoria: {
             type: Sequelize.INTEGER,
             references: {
-                model: "categoria",
-                key: 'id'
+                model: "categories",
+                key: 'category_id'
             }
         },
         fecha: Sequelize.DATE,

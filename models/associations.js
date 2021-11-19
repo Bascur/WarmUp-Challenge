@@ -6,5 +6,5 @@ const { Post } = require('../db');
 
 // Post => Category
 
-Post.hasMany(Category);
+Post.hasOne(Category);
 Category.belongsTo(Posts);
